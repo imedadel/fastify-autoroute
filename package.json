@@ -1,23 +1,48 @@
 {
-  "name": "fastify-autoroute",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^26.0.13",
-    "@types/node": "^14.6.4",
-    "fastify": "^3.3.0",
-    "fastify-plugin": "^2.3.3",
-    "husky": "^4.2.5",
-    "jest": "^26.4.2",
-    "prettier": "2.1.1",
-    "pretty-quick": "^3.0.0",
-    "ts-jest": "^26.3.0",
-    "typescript": "^4.0.2"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  }
+	"name": "fastify-autoroute",
+	"version": "0.0.0",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ImedAdel/fastify-autoroute.git"
+	},
+	"keywords": [
+		"fastify",
+		"require",
+		"folder",
+		"directory",
+		"plugin",
+		"plugins",
+		"automatically",
+		"load",
+		"auto",
+		"next",
+		"route"
+	],
+	"files": [
+		"dist"
+	],
+	"author": "Imed Adel <aadelimed@gmail.com>",
+	"license": "MIT",
+	"homepage": "https://github.com/ImedAdel/fastify-autoroute#readme",
+	"devDependencies": {
+		"@types/jest": "^26.0.13",
+		"@types/node": "^14.6.4",
+		"fastify": "^3.3.0",
+		"fastify-plugin": "^2.3.3",
+		"husky": "^4.2.5",
+		"jest": "^26.4.2",
+		"prettier": "2.1.1",
+		"pretty-quick": "^3.0.0",
+		"ts-jest": "^26.3.0",
+		"typescript": "^4.0.2"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged"
+		}
+	},
+	"dependencies": {
+		"fast-glob": "^3.2.4"
+	}
 }
