@@ -21,10 +21,9 @@ Add AutoRoute as a plugin to Fastify:
 ```ts
 import { FastifyPlugin } from "fastify";
 import { join } from "path";
-import fastifyAutoRoute from "./../../src";
+import fastifyAutoRoute from "fastify-autoroute";
 
 const app: FastifyPlugin = function (fastify, opts, next): void {
-	fastify.decorate("loadsFastify", true);
 	fastify.register(fastifyAutoRoute, {
 		autoRouteDir: join(__dirname, "routes"),
 	});
@@ -68,7 +67,7 @@ GET	/users/name
 GET	/users/email
 GET	/users/:id
 DELETE	/users/:id
-GET /teams/*
+GET	/teams/*
 ```
 
 **Note.** the method `all` is expanded into all the methods supported by Fastify.
