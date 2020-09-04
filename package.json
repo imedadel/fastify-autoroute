@@ -1,7 +1,7 @@
 {
 	"name": "fastify-autoroute",
 	"version": "0.1.2",
-	"main": "index.js",
+	"main": "dist/index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/ImedAdel/fastify-autoroute.git"
