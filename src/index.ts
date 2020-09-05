@@ -1,6 +1,6 @@
 import fg from "fast-glob";
 import fp from "fastify-plugin";
-import { FastifyPluginAsync } from "fastify";
+import { FastifyPluginAsync, FastifyPlugin } from "fastify";
 
 export interface AutoRouteOptions {
 	autoRouteDir: string;
@@ -49,11 +49,11 @@ const fastifyAutoRoute: FastifyPluginAsync<AutoRouteOptions> = async (
 
 	for (const item of parsedRoutes) {
 		const content = await import(item.file);
-		const { default: handler, ...options } = content;
+		let { default: handler, onRequest = [], ...options } = content;
 		if (handler.length < 1 || handler.length > 2) {
 			// throw enrichError(new Error(''))
 			throw new Error(`The function "${
-				handler.name || handler.toString().slice(0, 20) + "..."
+				handler.name || handler.toString().slice(0, 50) + "..."
 			}", defined at "${item.file}" has ${handler.length} arguments. 
 			In order to use the AutoRoute plugin you need to pass either 1 or 2 arguments.
 			Example:
@@ -61,18 +61,25 @@ const fastifyAutoRoute: FastifyPluginAsync<AutoRouteOptions> = async (
 			Or if you don't need to access fastify:
 					export default async (request, reply) => ({ good: true });`);
 		}
-		const wrapped = async function (f: any, opts: any) {
+
+		if (!Array.isArray(onRequest)) {
+			onRequest = [onRequest];
+		}
+
+		const wrapped: FastifyPluginAsync = async function (f, opts) {
 			f.route({
 				method: item.method,
 				url: item.route,
 				// Probably the hackiest thing I've ever done in my life
 				handler: handler.length === 1 ? handler(f) : handler,
+				onRequest: onRequest.map((fn: Function) =>
+					fn.length === 1 ? fn(f) : fn
+				),
 				...options,
 			});
 		};
 		fastify.register(wrapped);
 	}
-	// console.log(parsedRoutes);
 };
 
 export default fp(fastifyAutoRoute, {

@@ -107,6 +107,19 @@ export default (fastify: FastifyInstance) => async (
 };
 ```
 
+The same structure applies when accessing Fastify from inside `onRequest`:
+
+```ts
+export const onRequest = [
+	(fastify) => async (request, reply) => {
+		// your content
+		return;
+	},
+];
+```
+
+Currently, accessing Fastify from inside other hooks is not supported.
+
 # Unresolved issues
 
 - **Typing:** Can't it be nicer? Like automatic typing for every exported function? Is that possible in Typescript?
